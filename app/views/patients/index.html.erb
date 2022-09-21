@@ -1,0 +1,15 @@
+<div class="container">
+  <h1 class="page-header">Patients</h1>
+  <ul class="list-group">
+    <% @patients.each do |patient| %>
+    <div>
+      <%= patient.first_name %> |
+      <%= patient.last_name %> |
+      <%= patient.birth_date %> |
+      <%= patient.address %> |
+      <%= patient.phone %> |
+
+    </div>
+    <% end %>
+  </ul>
+</div>
