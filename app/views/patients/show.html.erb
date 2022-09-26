@@ -1,5 +1,13 @@
 <div class="container">
   <div class="row">
+    <%= link_to patients_path do %>
+      <button type="button" class="btn btn-primary">< List of Patients</button>
+    <% end  %>
+  </div>
+  <div class="row mt-3">
+    <h1>Patient details</h1>
+  </div>
+  <div class="row">
     <%= @patient.first_name %>
     <%= @patient.last_name %>
     <%= @patient.birthdate %>
