@@ -3,6 +3,16 @@
     <div class="col">
       <h1 class="page-header ">Patients</h1>
     </div>
+    <div class="col">
+      <%= form_with url: patients_path, method: :get, class: "d-flex" do %>
+      <%= text_field_tag :query,
+        params[:query],
+        class: "form-control",
+        placeholder: "Find a patient"
+      %>
+      <%= submit_tag "Search", class: "btn btn-primary" %>
+<% end %>
+    </div>
     <div class="col text-end">
     <%= link_to new_patient_path do %>
       <button type="button" class="btn btn-primary">New Patient</button>
