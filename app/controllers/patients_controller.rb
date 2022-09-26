@@ -1,6 +1,10 @@
 class PatientsController < ApplicationController
   def index
-    @patients = Patient.all
+    if params[:query].present?
+      @patients = Patient.where("first_name ILIKE ?", "%#{params[:query]}%")
+    else
+      @patients = Patient.all
+    end
   end
 
   def show
