@@ -1,9 +1,9 @@
 <div class="container pt-5">
   <div class="row">
     <h1>New Constultation</h1>
-    <h2>for <%= @patient.first_name %> <%= @patient.last_name %></h2>
+    <h2>for <%= @consultation.patient.first_name %> <%= @consultation.patient.last_name %></h2>
   </div>
-  <%= simple_form_for [@patient, @consultation] do |f| %>
+  <%= simple_form_for @consultation, url: patient_consultation_path do |f| %>
     <%= f.input :notes_before, as: :text, :input_html => { :cols => 4, :rows => 8 } %>
     <%= f.input :notes_after, as: :text, :input_html => { :cols => 4, :rows => 8 } %>
     <%= f.submit "Save", class: "btn btn-primary" %>
