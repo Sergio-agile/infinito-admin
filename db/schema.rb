@@ -10,15 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_26_102618) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_28_142911) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "consultations", force: :cascade do |t|
     t.bigint "patient_id", null: false
-    t.string "notes_before"
-    t.string "notes_after"
-    t.date "date"
+    t.text "notes_before"
+    t.text "notes_after"
+    t.date "date", default: -> { "CURRENT_DATE" }
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["patient_id"], name: "index_consultations_on_patient_id"

@@ -46,6 +46,9 @@
       <div class="row">
         <span class="badge rounded-pill bg-primary"><strong class="strong">Date:</strong> <%= consultation.date %></span>
       </div>
+      <%= link_to edit_patient_consultation_path(@patient, consultation) do %>
+        <i class="fa-solid fa-pen-to-square"></i></i>
+      <% end  %>
       <div class="row pt-3">
         <p><strong>Notes before: </strong></p>
         <p>
