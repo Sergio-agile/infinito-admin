@@ -4,8 +4,8 @@
     <h2>for <%= @patient.first_name %> <%= @patient.last_name %></h2>
   </div>
   <%= simple_form_for [@patient, @consultation] do |f| %>
-    <%= f.input :notes_before, as: :text, :input_html => { :cols => 4, :rows => 8 } %>
-    <%= f.input :notes_after, as: :text, :input_html => { :cols => 4, :rows => 8 } %>
+    <%= f.input :notes_before, as: :rich_text_area, :input_html => { style: 'height: 60vh' }  %>
+    <%= f.input :notes_after, as: :rich_text_area, :input_html => { style: 'height: 60vh' } %>
     <%= f.submit "Save", class: "btn btn-primary" %>
     <%= link_to patient_path(@patient) do %>
       <button type="button" class="btn btn-primary">Cancel</button>
