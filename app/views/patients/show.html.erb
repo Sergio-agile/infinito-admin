@@ -5,15 +5,21 @@
     <% end  %>
   </div>
   <div class="row mt-3">
-    <div class="col">
+    <div class="col-3">
       <h1>Patient details</h1>
     </div>
-    <div class="col text-end">
+    <div class="col-3 text-left">
+      <%= link_to edit_patient_path(@patient) do %>
+        <i class="fa-solid fa-pen-to-square"></i></i>
+      <% end  %>
+    </div>
+    <div class="col-6 text-end">
     <%= link_to new_patient_consultation_path(@patient) do %>
       <button type="button" class="btn btn-primary">New Consultation</button>
      <% end  %>
     </div>
   </div>
+  <hr>
   <table class="table mt-3 table-light table-striped">
     <thead>
       <tr>
@@ -39,7 +45,7 @@
     </tbody>
   </table>
   <div class="row pt-3">
-    <h2>Consultations</h2>
+    <h2 class="pb-3">Consultations</h2>
   </div>
   <div class="container">
     <% @consultations.each do |consultation|  %>
@@ -49,6 +55,7 @@
       <%= link_to edit_patient_consultation_path(@patient, consultation) do %>
         <i class="fa-solid fa-pen-to-square"></i></i>
       <% end  %>
+      <p>Last update: <%= consultation.updated_at %></p>
       <div class="row pt-3">
         <p><strong>Notes before: </strong></p>
         <p>
