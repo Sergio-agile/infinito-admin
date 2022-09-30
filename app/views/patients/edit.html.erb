@@ -1,7 +1,7 @@
 <div class="container pt-5">
   <div class="row">
-    <%= link_to patients_path do %>
-      <button type="button" class="btn btn-primary">< List of Patients</button>
+    <%= link_to patient_path(@patient) do %>
+      <button type="button" class="btn btn-primary">< Patient details</button>
     <% end  %>
   </div>
   <div class="row mt-3">
@@ -19,9 +19,11 @@
     <%= f.input :email %>
     <%= f.input :dni %>
     <%= f.input :address %>
-    <%= f.button :submit, 'Save', class:'btn btn-primary' %>
-    <%= link_to patient_path(@patient) do %>
-      <button type="button" class="btn btn-primary">Cancel</button>
-    <% end  %>
+    <% if policy(@patient).update? %>
+      <%= f.button :submit, 'Save', class:'btn btn-primary' %>
+      <%= link_to patient_path(@patient) do %>
+        <button type="button" class="btn btn-primary">Cancel</button>
+      <% end  %>
+    <% end %>
   <% end %>
 </div>

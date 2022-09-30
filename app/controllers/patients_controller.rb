@@ -1,23 +1,23 @@
 class PatientsController < ApplicationController
   def index
     if params[:query].present?
-      @patients = Patient.where("first_name ILIKE ?", "#{params[:query]}%")
+      authorize @patients = policy_scope(Patient.where("first_name ILIKE ?", "#{params[:query]}%"))
     else
-      @patients = Patient.all
+      authorize @patients = policy_scope(Patient.all)
     end
   end
 
   def show
-    @patient = Patient.find(params[:id])
-    @consultations = @patient.consultations.all.order("date DESC")
+    authorize @patient = Patient.find(params[:id])
+    authorize @consultations = @patient.consultations.all.order("date DESC")
   end
 
   def new
-    @patient = Patient.new
+    authorize @patient = Patient.new
   end
 
   def create
-    @patient = Patient.new(patient_params)
+    authorize @patient = Patient.new(patient_params)
     if @patient.save
       redirect_to patient_path(@patient)
     else
@@ -26,11 +26,11 @@ class PatientsController < ApplicationController
   end
 
   def edit
-    @patient = Patient.find(params[:id])
+    authorize @patient = Patient.find(params[:id])
   end
 
   def update
-    patient = Patient.find(params[:id])
+    authorize patient = Patient.find(params[:id])
     if patient.update(patient_params)
       redirect_to patient_path(patient)
     else

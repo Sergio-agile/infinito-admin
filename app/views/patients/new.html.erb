@@ -19,6 +19,8 @@
     <%= f.input :email %>
     <%= f.input :dni %>
     <%= f.input :address %>
-    <%= f.button :submit, 'Save', class:'btn btn-primary' %>
+    <% if policy(@patient).update? %>
+      <%= f.button :submit, 'Save', class:'btn btn-primary' %>
+    <% end %>
   <% end %>
 </div>
