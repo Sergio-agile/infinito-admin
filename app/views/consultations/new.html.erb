@@ -1,9 +1,4 @@
 <div class="container pt-5 mb-5">
-  <div class="row mt-3 mb-3">
-    <%= link_to patient_path(@patient) do %>
-      <button type="button" class="btn btn-primary">< Patient Details</button>
-    <% end  %>
-  </div>
   <div class="row">
     <h1>New Constultation</h1>
     <h2>for <%= @patient.first_name %> <%= @patient.last_name %></h2>

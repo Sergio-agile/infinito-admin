@@ -2,6 +2,9 @@ class ConsultationsController < ApplicationController
   def new
     authorize @consultation = Consultation.new
     authorize @patient = Patient.find(params[:patient_id])
+    add_breadcrumb "Patients", '/'
+    add_breadcrumb "Patient details", "/patients/#{@patient.id}"
+    add_breadcrumb "New consultation", "/patients/#{@patient.id}/consultations/new"
   end
 
   def create
@@ -17,6 +20,9 @@ class ConsultationsController < ApplicationController
 
   def edit
     authorize @consultation = Consultation.find(params[:id])
+    add_breadcrumb "Patients", '/'
+    add_breadcrumb "Patient details", "/patients/#{@consultation.patient.id}"
+    add_breadcrumb "Edit consultation", "/patients/#{@consultation.patient.id}/consultations/#{@consultation.id}/edit"
   end
 
   def update
