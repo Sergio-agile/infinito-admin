@@ -1,9 +1,9 @@
 class ConsultationsController < ApplicationController
   before_action :set_patient, only: %i[new create]
+  before_action :set_consultation, only: %i[edit update]
 
   def new
     authorize @consultation = Consultation.new
-    # authorize @patient = Patient.find(params[:patient_id])
     add_breadcrumb "Patients", '/'
     add_breadcrumb "Patient details", "/patients/#{@patient.id}"
     add_breadcrumb "New consultation", "/patients/#{@patient.id}/consultations/new"
@@ -11,7 +11,6 @@ class ConsultationsController < ApplicationController
 
   def create
     authorize @consultation = Consultation.new(consultation_params)
-    # authorize @patient = Patient.find(params[:patient_id])
     @consultation.patient = @patient
     if @consultation.save
       redirect_to patient_path(@patient)
@@ -21,14 +20,12 @@ class ConsultationsController < ApplicationController
   end
 
   def edit
-    authorize @consultation = Consultation.find(params[:id])
     add_breadcrumb "Patients", '/'
     add_breadcrumb "Patient details", "/patients/#{@consultation.patient.id}"
     add_breadcrumb "Edit consultation", "/patients/#{@consultation.patient.id}/consultations/#{@consultation.id}/edit"
   end
 
   def update
-    authorize @consultation = Consultation.find(params[:id])
     if @consultation.update(consultation_params)
       redirect_to patient_path(@consultation.patient)
     else
@@ -44,5 +41,9 @@ class ConsultationsController < ApplicationController
 
   def set_patient
     authorize @patient = Patient.find(params[:patient_id])
+  end
+
+  def set_consultation
+    authorize @consultation = Consultation.find(params[:id])
   end
 end
