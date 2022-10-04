@@ -1,4 +1,6 @@
 class PatientsController < ApplicationController
+  before_action :set_patient, only: %i[show edit update]
+
   def index
     add_breadcrumb "Patients", 'patients'
     if params[:query].present?
@@ -10,7 +12,6 @@ class PatientsController < ApplicationController
 
   def show
     add_breadcrumb "Patients", '/'
-    authorize @patient = Patient.find(params[:id])
     add_breadcrumb "Patient details", "#{@patient.id}"
     authorize @consultations = @patient.consultations.
                                         includes([:rich_text_notes_before]).
@@ -35,16 +36,14 @@ class PatientsController < ApplicationController
   end
 
   def edit
-    authorize @patient = Patient.find(params[:id])
     add_breadcrumb "Patients", '/'
     add_breadcrumb "Patient details", "/patients/#{@patient.id}"
     add_breadcrumb "Edit patient", "/patients/#{@patient.id}/edit"
   end
 
   def update
-    authorize patient = Patient.find(params[:id])
-    if patient.update(patient_params)
-      redirect_to patient_path(patient)
+    if @patient.update(patient_params)
+      redirect_to patient_path(@patient)
     else
       render :edit, status: :unprocessable_entity
     end
@@ -54,5 +53,9 @@ class PatientsController < ApplicationController
 
   def patient_params
     params.require(:patient).permit(:first_name, :last_name, :birthdate, :phone, :address, :email, :dni)
+  end
+
+  def set_patient
+    authorize @patient = Patient.find(params[:id])
   end
 end

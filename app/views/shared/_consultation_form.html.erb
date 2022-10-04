@@ -1,0 +1,17 @@
+<% if (defined?(patient) && patient) && (defined?(consultation)) %>
+  <%= simple_form_for [patient, consultation] do |f| %>
+  <%= f.input :notes_before, as: :rich_text_area, :input_html => { style: 'height: 60vh' }  %>
+  <%= f.input :notes_after, as: :rich_text_area, :input_html => { style: 'height: 60vh' } %>
+  <%= f.input :notes_to_send, as: :rich_text_area, :input_html => { style: 'height: 60vh' } %>
+  <div class="pb-5">
+  <% if policy(consultation).public_send("#{action}?") %>
+    <%= f.submit "Save", class: "btn btn-primary" %>
+    <% if defined?(path) && path %>
+      <%= link_to path do %>
+        <button type="button" class="btn btn-primary">Cancel</button>
+      <% end  %>
+    <% end  %>
+  <% end %>
+  </div>
+  <% end %>
+<% end %>
