@@ -1,0 +1,27 @@
+<% if defined?(patient) && patient %>
+  <%= simple_form_for patient do |f| %>
+    <%= f.input :first_name %>
+    <%= f.input :last_name %>
+    <%= f.input :birthdate, as: :date, html5: true,
+                start_year: Date.today.year - 90,
+                end_year: Date.today.year - 12,
+                discard_day: true,
+                order: [:month, :year] %>
+    <%= f.input :phone %>
+    <%= f.input :email %>
+    <%= f.input :dni %>
+    <%= f.input :address %>
+    <div class="pb-5">
+    <% if defined?(action) && action %>
+      <% if policy(patient).public_send("#{action}?") %>
+        <%= f.button :submit, 'Save', class:'btn btn-primary' %>
+        <% if defined?(path) && path %>
+          <%= link_to public_send("#{path}") do %>
+            <button type="button" class="btn btn-primary">Cancel</button>
+          <% end  %>
+        <% end %>
+      <% end %>
+    <% end %>
+    </div>
+  <% end %>
+<% end %>

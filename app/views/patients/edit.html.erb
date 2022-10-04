@@ -2,23 +2,5 @@
   <div class="row mt-3">
     <h1>Edit Patient</h1>
   </div>
-  <%= simple_form_for @patient do |f| %>
-    <%= f.input :first_name %>
-    <%= f.input :last_name %>
-    <%= f.input :birthdate, as: :date, html5: true,
-                start_year: Date.today.year - 90,
-                end_year: Date.today.year - 12,
-                discard_day: true,
-                order: [:month, :year] %>
-    <%= f.input :phone %>
-    <%= f.input :email %>
-    <%= f.input :dni %>
-    <%= f.input :address %>
-    <% if policy(@patient).update? %>
-      <%= f.button :submit, 'Save', class:'btn btn-primary' %>
-      <%= link_to patient_path(@patient) do %>
-        <button type="button" class="btn btn-primary">Cancel</button>
-      <% end  %>
-    <% end %>
-  <% end %>
+  <%= render "shared/patient_form", patient: @patient, action: 'update', path: 'patient_path' %>
 </div>

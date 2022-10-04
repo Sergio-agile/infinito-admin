@@ -3,15 +3,8 @@
     <h1>New Constultation</h1>
     <h2>for <%= @patient.first_name %> <%= @patient.last_name %></h2>
   </div>
-  <%= simple_form_for [@patient, @consultation] do |f| %>
-    <%= f.input :notes_before, as: :rich_text_area, :input_html => { style: 'height: 60vh' }  %>
-    <%= f.input :notes_after, as: :rich_text_area, :input_html => { style: 'height: 60vh' } %>
-    <%= f.input :notes_to_send, as: :rich_text_area, :input_html => { style: 'height: 60vh' } %>
-    <% if policy(@consultation).update? %>
-      <%= f.submit "Save", class: "btn btn-primary" %>
-      <%= link_to patient_path(@patient) do %>
-        <button type="button" class="btn btn-primary">Cancel</button>
-      <% end  %>
-    <% end %>
-  <% end %>
+  <%= render "shared/consultation_form", patient: @patient,
+                                          consultation: @consultation,
+                                          action: 'create',
+                                          path: patient_path(@patient) %>
 </div>
