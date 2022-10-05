@@ -1,8 +1,8 @@
 class PatientsController < ApplicationController
   before_action :set_patient, only: %i[show edit update]
+  before_action :set_breadcrumbs, only: %i[index show new edit]
 
   def index
-    add_breadcrumb "Patients", 'patients'
     if params[:query].present?
       authorize @patients = policy_scope(Patient.where("first_name ILIKE ?", "#{params[:query]}%").page params[:page])
     else
@@ -11,8 +11,6 @@ class PatientsController < ApplicationController
   end
 
   def show
-    add_breadcrumb "Patients", '/'
-    add_breadcrumb "Patient details", "#{@patient.id}"
     authorize @consultations = @patient.consultations.
                                         includes([:rich_text_notes_before]).
                                         includes([:rich_text_notes_after]).
@@ -21,8 +19,6 @@ class PatientsController < ApplicationController
   end
 
   def new
-    add_breadcrumb "Patients", '/'
-    add_breadcrumb "New", "patients/new"
     authorize @patient = Patient.new
   end
 
@@ -36,9 +32,6 @@ class PatientsController < ApplicationController
   end
 
   def edit
-    add_breadcrumb "Patients", '/'
-    add_breadcrumb "Patient details", "/patients/#{@patient.id}"
-    add_breadcrumb "Edit patient", "/patients/#{@patient.id}/edit"
   end
 
   def update
@@ -57,5 +50,18 @@ class PatientsController < ApplicationController
 
   def set_patient
     authorize @patient = Patient.find(params[:id])
+  end
+
+  def set_breadcrumbs
+    add_breadcrumb "Patients", '/'
+    case action_name
+    when "show"
+      add_breadcrumb "Patient details", "#{@patient.id}"
+    when "new"
+      add_breadcrumb "New", "patients/new"
+    when "edit"
+      add_breadcrumb "Patient details", "/patients/#{@patient.id}"
+      add_breadcrumb "Edit patient", "/patients/#{@patient.id}/edit"
+    end
   end
 end

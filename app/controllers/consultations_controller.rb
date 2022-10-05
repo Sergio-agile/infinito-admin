@@ -1,12 +1,10 @@
 class ConsultationsController < ApplicationController
   before_action :set_patient, only: %i[new create]
   before_action :set_consultation, only: %i[edit update]
+  before_action :set_breadcrumbs, only: %i[new edit]
 
   def new
     authorize @consultation = Consultation.new
-    add_breadcrumb "Patients", '/'
-    add_breadcrumb "Patient details", "/patients/#{@patient.id}"
-    add_breadcrumb "New consultation", "/patients/#{@patient.id}/consultations/new"
   end
 
   def create
@@ -20,9 +18,6 @@ class ConsultationsController < ApplicationController
   end
 
   def edit
-    add_breadcrumb "Patients", '/'
-    add_breadcrumb "Patient details", "/patients/#{@consultation.patient.id}"
-    add_breadcrumb "Edit consultation", "/patients/#{@consultation.patient.id}/consultations/#{@consultation.id}/edit"
   end
 
   def update
@@ -45,5 +40,17 @@ class ConsultationsController < ApplicationController
 
   def set_consultation
     authorize @consultation = Consultation.find(params[:id])
+  end
+
+  def set_breadcrumbs
+    add_breadcrumb "Patients", '/'
+    case action_name
+    when "new"
+      add_breadcrumb "Patient details", "/patients/#{@patient.id}"
+      add_breadcrumb "New consultation", "/patients/#{@patient.id}/consultations/new"
+    when "edit"
+      add_breadcrumb "Patient details", "/patients/#{@consultation.patient.id}"
+      add_breadcrumb "Edit consultation", "/patients/#{@consultation.patient.id}/consultations/#{@consultation.id}/edit"
+    end
   end
 end
