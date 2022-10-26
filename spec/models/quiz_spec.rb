@@ -15,9 +15,13 @@ RSpec.describe Quiz, type: :model do
       expect(subject).to be_valid
     end
 
-    it { should have_many(:quizzes_questions) }
+    it 'expected to respond to quizzes_questions' do
+      expect(subject).to respond_to(:quizzes_questions)
+    end
 
-    it { should have_many(:questions) } # through quizzes_questions
+    it 'expected to respond to quizzes' do
+      expect(subject).to respond_to(:questions)
+    end
 
     it 'should have a valid patient' do
       subject.patient = patient
