@@ -1,8 +1,6 @@
-<%# <h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p> %>
-<div class="container pt-5 bg-light">
+<div class="container pt-5 bg-light position-relative">
   <div class="row bg-light">
-    <div class="col">
+    <div class="col-6 mt-5 mx-auto position-absolute translate-middle start-50">
       <%= form_with url: patients_path, method: :get, class: "d-flex" do %>
         <%= text_field_tag :query,
           params[:query],
@@ -12,5 +10,8 @@
         <%= submit_tag "Search", class: "btn btn-primary" %>
       <% end %>
     </div>
+  </div>
+  <div class="row bg-light home-image mx-auto">
+    <%= image_tag "logo-infinito.png" %>
   </div>
 </div>
