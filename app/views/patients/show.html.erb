@@ -1,6 +1,6 @@
 <div class="container">
-  <div class="row mt-3">
-    <div class="col-3">
+  <div class="row mt-3 align-items-center">
+    <div class="col-3 pt-3">
       <h1>Patient details</h1>
     </div>
     <div class="col-3 text-left">
@@ -14,8 +14,7 @@
      <% end  %>
     </div>
   </div>
-  <hr>
-  <table class="table mt-3 table-light table-striped">
+  <table class="table mt-4 table-light table-striped table-bordered">
       <%= render "shared/patient_header" %>
     <tbody>
       <tr>
@@ -23,37 +22,55 @@
       </tr>
     </tbody>
   </table>
+  <% if @consultations.empty? %>
+  <div class="row pt-3">
+    <h2 class="pb-3">No Consultations for this patient yet</h2>
+  </div>
+  <% end  %>
+  <% if !@consultations.empty? %>
   <div class="row pt-3">
     <h2 class="pb-3">Consultations</h2>
   </div>
   <div class="container">
     <% @consultations.each do |consultation|  %>
       <div class="row">
-        <span class="badge rounded-pill bg-primary"><strong class="strong">Date:</strong> <%= consultation.date %></span>
-      </div>
-      <%= link_to edit_patient_consultation_path(@patient, consultation) do %>
-        <i class="fa-solid fa-pen-to-square"></i></i>
-      <% end  %>
-      <p>Last update: <%= consultation.updated_at %></p>
-      <div class="row pt-3">
-        <p><strong>Notes before: </strong></p>
-        <p>
-          <%= consultation.notes_before %>
+        <p class="text-center fs-5">
+          <a href="#" class="text-decoration-none link-secondary"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#collapseConsultationsInfo-<%= consultation.id %>"
+                      aria-expanded="false"
+                      aria-controls="collapseExample">
+                      Date: <%= consultation.date %> <i class="fa-sharp fa-solid fa-caret-down"></i>
+          </a>
         </p>
+        <hr>
       </div>
-      <div class="row pt-3">
-        <p><strong>Notes after: </strong></p>
-        <p>
-          <%= consultation.notes_after %>
-        </p>
+      <div class="collapse" id="collapseConsultationsInfo-<%= consultation.id %>">
+        <p class="d-inline-block">Last update: <%= consultation.updated_at %></p>
+        <%= link_to edit_patient_consultation_path(@patient, consultation) do %>
+          <i class="fa-solid fa-pen-to-square"></i></i>
+        <% end  %>
+        <div class="row pt-3">
+          <p><strong>Notes before: </strong></p>
+          <p>
+            <%= consultation.notes_before %>
+          </p>
+        </div>
+        <div class="row pt-3">
+          <p><strong>Notes after: </strong></p>
+          <p>
+            <%= consultation.notes_after %>
+          </p>
+        </div>
+        <div class="row pt-3">
+          <p><strong>Notes to send: </strong></p>
+          <p>
+            <%= consultation.notes_to_send %>
+          </p>
+        </div>
+        <hr>
       </div>
-      <div class="row pt-3">
-        <p><strong>Notes to send: </strong></p>
-        <p>
-          <%= consultation.notes_to_send %>
-        </p>
-      </div>
-      <hr>
     <% end %>
   </div>
+  <% end %>
 </div>
