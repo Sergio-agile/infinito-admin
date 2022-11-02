@@ -53,15 +53,10 @@ class PatientsController < ApplicationController
   end
 
   def set_breadcrumbs
-    add_breadcrumb "Patients", '/'
-    case action_name
-    when "show"
-      add_breadcrumb "Patient details", "#{@patient.id}"
-    when "new"
-      add_breadcrumb "New", "patients/new"
-    when "edit"
-      add_breadcrumb "Patient details", "/patients/#{@patient.id}"
-      add_breadcrumb "Edit patient", "/patients/#{@patient.id}/edit"
-    end
+    add_breadcrumb "Home", '/'
+    add_breadcrumb "Patients", patients_path
+    add_breadcrumb "New", new_patient_path if action_name == 'new'
+    add_breadcrumb "Patient details", "/patients/#{@patient.id}" if action_name == 'show' || action_name == 'edit'
+    add_breadcrumb "Edit details", "/patients/#{@patient.id}/edit" if action_name == 'edit'
   end
 end
