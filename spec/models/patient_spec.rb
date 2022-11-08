@@ -19,8 +19,12 @@ RSpec.describe Patient, type: :model do
   end
 
   it "has many consultations" do
-    should respond_to(:consultations)
+    relation = Patient.reflect_on_association(:consultations)
+    expect(relation.macro).to eq(:has_many)
   end
 
-  it { should respond_to(:quiz) }
+  it "has one quiz" do
+    relation = Patient.reflect_on_association(:quiz)
+    expect(relation.macro).to eq(:has_one)
+  end
 end
