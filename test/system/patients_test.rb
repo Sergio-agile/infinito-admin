@@ -6,7 +6,7 @@ class PatientsTest < ApplicationSystemTestCase
     login_as users(:sergio)
     visit root_url
 
-    assert_selector "h1", text: "Patients"
+    assert_selector "h2", text: "Infinito - Admin"
   end
 
   test "visiting the index without login" do

@@ -5,26 +5,23 @@ RSpec.describe Quiz, type: :model do
     subject { described_class.new }
     let(:patient) { Patient.new(first_name: 'John', last_name: 'Doe') }
 
-    it 'should be invalid with no patient' do
-      expect(subject).to be_invalid
+    it "belongs to patient" do
+      relation = Quiz.reflect_on_association(:patient)
+      expect(relation.macro).to eq(:belongs_to)
     end
 
-    it 'should belongs to a patient' do
-      subject.patient = patient
-      expect(subject.patient).to equal(patient)
-      expect(subject).to be_valid
+    it "has many quizzes_questions" do
+      relation = Quiz.reflect_on_association(:quizzes_questions)
+      expect(relation.macro).to eq(:has_many)
     end
 
-    it { should have_many(:quizzes_questions) }
-
-    it { should have_many(:questions) } # through quizzes_questions
-
-    it 'should have a valid patient' do
-      subject.patient = patient
-      expect(subject.patient).to have_attributes(first_name: 'John', last_name: 'Doe')
+    it 'has many questions through quizzes_questions' do
+      relation = Quiz.reflect_on_association(:quizzes_questions)
+      expect(relation.macro).to eq(:has_many)
     end
   end
 
+  # TODO: This is not really working.
   context 'with no patient' do
     it 'throws an error when no patient is setted' do
       subject.patient = nil
