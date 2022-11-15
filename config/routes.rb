@@ -8,4 +8,7 @@ Rails.application.routes.draw do
   resources :patients, only: [:index, :show, :new, :create, :edit, :update] do
     resources :consultations, only: [:new, :create, :edit, :update]
   end
+
+  resources :sections, only: [:index, :new, :create, :edit, :update]
+
 end
