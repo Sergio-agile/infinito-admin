@@ -1,0 +1,10 @@
+<div class="container pt-5 mb-5">
+  <div class="row">
+    <h1>New Question</h1>
+    <h2>for <%= @section.title %></h2>
+  </div>
+  <%= render "shared/question_form", section: @section,
+                                          question: @question,
+                                          action: 'create',
+                                          path: section_path(@section) %>
+</div>
