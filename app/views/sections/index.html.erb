@@ -1,0 +1,38 @@
+<div class="container">
+  <div class="row my-3">
+    <div class="col">
+      <h1>Anamnesis</h1>
+    </div>
+    <div class="col text-end">
+    <%= link_to new_section_path do %>
+      <button type="button" class="btn btn-primary">New Section</button>
+     <% end  %>
+    </div>
+  </div>
+  <div class="accordion" id="accordionSections">
+    <% @sections.each do |section| %>
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="title-<%= section.id %>">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSection<%= section.id %>" aria-expanded="true" aria-controls="collapseSection<%= section.id %>">
+            <%= section.order %> - <%= section.title %>
+            <div class="ms-3 text-left">
+              <%= link_to edit_section_path(section) do %>
+                <i class="fa-solid fa-pen-to-square"></i></i>
+              <% end  %>
+            </div>
+            <div class="ms-3 text-left">
+              <%= link_to section_path(section) do %>
+                <i class="fa fa-eye" aria-hidden="true"></i>
+              <% end  %>
+            </div>
+          </button>
+        </h2>
+        <div id="collapseSection<%= section.id %>" class="accordion-collapse collapse show" aria-labelledby="title-<%= section.id %>" data-bs-parent="#accordionSections">
+          <div class="accordion-body">
+            <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

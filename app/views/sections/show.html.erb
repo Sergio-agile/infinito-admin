@@ -1,1 +1,18 @@
-SECTION DETAILS
+<div class="container">
+  <div class="row mt-3 align-items-center">
+      <div class="col-3 pt-3">
+        <h1>Section details</h1>
+      </div>
+      <div class="col-3 text-left">
+        <%= link_to edit_section_path(@section) do %>
+          <i class="fa-solid fa-pen-to-square"></i></i>
+        <% end  %>
+      </div>
+      <div class="col-6 text-end">
+      <%= link_to new_section_question_path(@section) do %>
+        <button type="button" class="btn btn-primary">Add Question</button>
+      <% end  %>
+      </div>
+    </div>
+  </div>
+</div>

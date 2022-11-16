@@ -1,4 +1,10 @@
 class SectionsController < ApplicationController
+  before_action :set_section, only: %i[show edit update]
+
+  def index
+    authorize @sections = policy_scope(Section.all).order(:order)
+  end
+
   def new
     authorize @section = Section.new
   end
@@ -14,9 +20,16 @@ class SectionsController < ApplicationController
     end
   end
 
+  def edit
+  end
+
   private
 
   def section_params
     params.require(:section).permit(:title, :title_to_display, :order)
+  end
+
+  def set_section
+    authorize @section = Section.find(params[:id])
   end
 end
