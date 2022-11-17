@@ -1,15 +1,6 @@
 <div class="container pt-5">
   <div class="row mt-3">
     <h1>New Section</h1>
-    <%= simple_form_for [@section] do |f| %>
-      <%= f.input :title %>
-      <%= f.input :title_to_display %>
-      <%= f.input :order %>
-      <%= f.association :section %>
-
-      <div class="pb-5">
-        <%= f.button :submit, 'Save', class:'btn btn-primary' %>
-      </div>
-    <% end %>
   </div>
+  <%= render "shared/section_form", section: @section, action: 'create', path: 'sections_path' %>
 </div>
