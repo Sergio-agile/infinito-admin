@@ -29,7 +29,14 @@
         </h2>
         <div id="collapseSection<%= section.id %>" class="accordion-collapse collapse show" aria-labelledby="title-<%= section.id %>" data-bs-parent="#accordionSections">
           <div class="accordion-body">
-            <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+            <div class="list-group">
+              <% section.questions.each do |question|  %>
+                <%= link_to edit_section_question_path(section, question), class: "list-group-item list-group-item-action" do %>
+                  <%= question.order %>. <%= question.title %>
+                  <i class="fa-solid fa-pen-to-square ms-3"></i>
+                <% end  %>
+              <% end %>
+            </div>
           </div>
         </div>
       </div>

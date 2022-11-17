@@ -1,0 +1,10 @@
+<div class="container pt-5 mb-5">
+  <div class="row">
+    <h1>Edit Question</h1>
+    <h2>for <%= @question.section.title %></h2>
+  </div>
+  <%= render "shared/question_form", section: @question.section,
+                                          question: @question,
+                                          action: 'edit',
+                                          path: sections_path %>
+</div>
