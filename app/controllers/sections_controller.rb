@@ -14,13 +14,26 @@ class SectionsController < ApplicationController
     parent = Section.find(params["section"]["section_id"].to_i) unless params["section"]["section_id"].empty?
     @section.section = parent if parent
     if @section.save
-      redirect_to new_section
+      redirect_to sections_path
     else
       render :new, status: :unprocessable_entity
     end
   end
 
   def edit
+  end
+
+  def update
+    # parent = Section.find(params["section"]["section_id"].to_i) unless params["section"]["section_id"].empty?
+    parent = params["section"]["section_id"]
+    # parent = nil if parent.empty?
+    parent.empty? ? parent = nil : parent = Section.find(params["section"]["section_id"].to_i)
+    @section.section = parent
+    if @section.update(section_params)
+      redirect_to section_path(@section)
+    else
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   private

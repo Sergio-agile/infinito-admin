@@ -1,0 +1,20 @@
+<% if defined?(section) && section %>
+  <%= simple_form_for [section] do |f| %>
+    <%= f.input :title %>
+    <%= f.input :title_to_display %>
+    <%= f.input :order %>
+    <%= f.association :section %>
+    <div class="pb-5">
+    <% if defined?(action) && action %>
+      <% if policy(section).public_send("#{action}?") %>
+        <%= f.button :submit, 'Save', class:'btn btn-primary' %>
+        <% if defined?(path) && path %>
+          <%= link_to public_send("#{path}") do %>
+            <button type="button" class="btn btn-primary">Cancel</button>
+          <% end  %>
+        <% end %>
+      <% end %>
+    <% end %>
+    </div>
+  <% end %>
+<% end %>
