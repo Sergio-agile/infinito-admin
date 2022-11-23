@@ -10,36 +10,96 @@
     </div>
   </div>
   <div class="accordion" id="accordionSections">
-    <% @sections.each do |section| %>
-      <div class="accordion-item">
-        <h2 class="accordion-header" id="title-<%= section.id %>">
-          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSection<%= section.id %>" aria-expanded="true" aria-controls="collapseSection<%= section.id %>">
-            <%= section.order %> - <%= section.title %>
-            <div class="ms-3 text-left">
-              <%= link_to edit_section_path(section) do %>
-                <i class="fa-solid fa-pen-to-square"></i></i>
-              <% end  %>
-            </div>
-            <div class="ms-3 text-left">
-              <%= link_to section_path(section) do %>
-                <i class="fa fa-eye" aria-hidden="true"></i>
-              <% end  %>
-            </div>
-          </button>
-        </h2>
-        <div id="collapseSection<%= section.id %>" class="accordion-collapse collapse show" aria-labelledby="title-<%= section.id %>" data-bs-parent="#accordionSections">
-          <div class="accordion-body">
-            <div class="list-group">
-              <% section.questions.each do |question|  %>
-                <%= link_to edit_section_question_path(section, question), class: "list-group-item list-group-item-action" do %>
-                  <%= question.order %>. <%= question.title %>
-                  <i class="fa-solid fa-pen-to-square ms-3"></i>
-                <% end  %>
+    <% @sections.each do |section|  %>
+
+      <% if section.section.nil? %>
+        <%# Section %>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="title-<%= section.id %>">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSection<%= section.id %>" aria-expanded="true" aria-controls="collapseSection<%= section.id %>">
+              <% if section.section.nil? %>
+                <%= section.order %> - <%= section.title %>
+              <% else %>
+                <%= section.section.order %>.<%= section.order %> - <%= section.title %>
               <% end %>
+              <div class="ms-3 text-left">
+                <%= link_to edit_section_path(section) do %>
+                  <i class="fa-solid fa-pen-to-square"></i></i>
+                <% end  %>
+              </div>
+              <div class="ms-3 text-left">
+                <%= link_to section_path(section) do %>
+                  <i class="fa fa-eye" aria-hidden="true"></i>
+                <% end  %>
+              </div>
+            </button>
+          </h2>
+          <%# Collapse layer for Section %>
+          <div id="collapseSection<%= section.id %>" class="accordion-collapse collapse show" aria-labelledby="title-<%= section.id %>" data-bs-parent="#accordionSections">
+            <div class="accordion-body">
+
+              <%# list of questions for the section  %>
+              <div class="list-group">
+                <% if !section.questions.empty? %>
+                  <% section.questions.each do |question|  %>
+                    <%= link_to edit_section_question_path(section, question), class: "list-group-item list-group-item-action" do %>
+                      <%= question.order %>. <%= question.title %>
+                      <i class="fa-solid fa-pen-to-square ms-3"></i>
+                    <% end  %>
+                  <% end %>
+                <% end %>
+              </div>
+
+            <%# Subsections? %>
+            <% if !section.sections.empty? %>
+              <% section.sections.each do |section|  %>
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="title-<%= section.id %>">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSection<%= section.id %>" aria-expanded="true" aria-controls="collapseSection<%= section.id %>">
+                      <% if section.section.nil? %>
+                        <%= section.order %> - <%= section.title %>
+                      <% else %>
+                        <%= section.section.order %>.<%= section.order %> - <%= section.title %>
+                      <% end %>
+                      <div class="ms-3 text-left">
+                        <%= link_to edit_section_path(section) do %>
+                          <i class="fa-solid fa-pen-to-square"></i></i>
+                        <% end  %>
+                      </div>
+                      <div class="ms-3 text-left">
+                        <%= link_to section_path(section) do %>
+                          <i class="fa fa-eye" aria-hidden="true"></i>
+                        <% end  %>
+                      </div>
+                    </button>
+                  </h2>
+                  <div id="collapseSection<%= section.id %>" class="accordion-collapse collapse show" aria-labelledby="title-<%= section.id %>" data-bs-parent="#accordionSections">
+                    <div class="accordion-body">
+
+                      <div class="list-group">
+                        <% if !section.questions.empty? %>
+                          <% section.questions.each do |question|  %>
+                            <%= link_to edit_section_question_path(section, question), class: "list-group-item list-group-item-action" do %>
+                              <%= question.order %>. <%= question.title %>
+                              <i class="fa-solid fa-pen-to-square ms-3"></i>
+                            <% end  %>
+                          <% end %>
+                        <% end %>
+                      </div>
+
+                    </div>
+                  </div>
+              </div>
+
+              <% end %>
+            <% end %>
             </div>
           </div>
+
         </div>
-      </div>
+
+      <% end %>
+
     <% end %>
   </div>
 </div>
