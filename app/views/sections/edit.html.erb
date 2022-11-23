@@ -1,6 +1,13 @@
 <div class="container pt-5">
   <div class="row mt-3">
-    <h1>Edit Section</h1>
+    <div class="col-3 text-start">
+      <h1>Edit Section</h1>
+    </div>
+    <div class="text-end">
+      <%= link_to new_section_question_path(@section) do %>
+        <button type="button" class="btn btn-primary">Add Question</button>
+      <% end  %>
+    </div>
   </div>
-  <%= render "shared/section_form", section: @section, action: 'update', path: 'section_path' %>
+  <%= render "shared/section_form", section: @section, action: 'update', path: 'sections_path' %>
 </div>

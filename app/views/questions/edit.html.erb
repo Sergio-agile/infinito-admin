@@ -6,5 +6,5 @@
   <%= render "shared/question_form", section: @question.section,
                                           question: @question,
                                           action: 'edit',
-                                          path: sections_path %>
+                                          path: edit_section_path(@question.section) %>
 </div>
