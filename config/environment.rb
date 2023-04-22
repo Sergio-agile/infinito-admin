@@ -5,6 +5,6 @@ require_relative "application"
 Rails.application.initialize!
 
 Rails.application.configure do
-  Bullet.enable = true
-  Bullet.rails_logger = true
+  Bullet.enable = false
+  Bullet.rails_logger = false
 end
