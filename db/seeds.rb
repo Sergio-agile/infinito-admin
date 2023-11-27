@@ -10,7 +10,7 @@ require 'faker'
 500.times do
   patient = Patient.create(first_name: Faker::Name.first_name,
                     last_name: Faker::Name.last_name,
-                    birth_date: Faker::Date.birthday(min_age: 0, max_age: 65),
+                    birthdate: Faker::Date.birthday(min_age: 0, max_age: 65),
                     phone: Faker::PhoneNumber.phone_number,
                     address: Faker::Address.full_address)
   3.times do
