@@ -7,6 +7,9 @@ gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'mast
 gem "pundit"
 gem 'kaminari'
 gem "breadcrumbs_on_rails"
+gem 'rubocop', require: false
+gem 'rubocop-rails'
+gem 'importmap-rails'
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.3", ">= 7.0.3.1"
